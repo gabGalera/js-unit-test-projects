@@ -41,5 +41,10 @@ describe('4 - Implemente os casos de teste para a função `circle`', () => {
     expect(circle(3)).toHaveProperty('radius', 3)
     expect(circle(3)).toHaveProperty('area', 3.14 * 3 * 3)
     expect(circle(3)).toHaveProperty('circumference', 3.14 * 2 * 3)
+    expect(circle(3)).toMatchObject({
+      radius: 3,
+      area: 3.14 * 3 * 3,
+      circumference: 3.14 * 2 * 3
+    })
   });
 });
