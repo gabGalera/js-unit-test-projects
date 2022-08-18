@@ -109,9 +109,11 @@ const testaValor = (v1, v2) => {
 
 const somaComida = (dados) => {
   let b = 0;
+  let c = Object.values((dados.fetchMenu().food));
+  let d = Object.keys(dados.fetchMenu().food);
   for (let i = 0; i < Object.keys(dados.fetchMenu().food).length; i += 1) {
     for (let j = 0; j < dados.consumption.length; j += 1) {
-      b = somaValor(Object.values((dados.fetchMenu().food))[i], testaValor(Object.keys(dados.fetchMenu().food)[i], dados.consumption[j]), b);
+      b = somaValor(c[i], testaValor(d[i], dados.consumption[j]), b);
     }
     }
     return b; 
@@ -119,9 +121,11 @@ const somaComida = (dados) => {
 
 const somaBebida = (dados) => {
   let b = 0;
+  let c = Object.values((dados.fetchMenu().drink));
+  let d = Object.keys(dados.fetchMenu().drink);
   for (let i = 0; i < Object.keys(dados.fetchMenu().drink).length; i += 1) {
     for (let j = 0; j < dados.consumption.length; j += 1) {
-      b = somaValor(Object.values((dados.fetchMenu().drink))[i], testaValor(Object.keys(dados.fetchMenu().drink)[i], dados.consumption[j]), b);
+      b = somaValor(c[i], testaValor(d[i], dados.consumption[j]), b);
     }
     }
     return b;
