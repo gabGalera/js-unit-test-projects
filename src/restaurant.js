@@ -23,9 +23,9 @@
   - Uma chave `fetchMenu` retornando o menu, que nada mais é que o objeto passado como parâmetro para createMenu()
 
     Exemplo:
-    const meuRestaurante = createMenu({
+    const dados = createMenu({
       food: {'coxinha': 3.90, 'sanduiche', 9.90},
-      drinks: {'agua': 3.90, 'cerveja': 6.90}
+      drink: {'agua': 3.90, 'cerveja': 6.90}
     });
 
     meuRestaurante.fetchMenu() // Retorno: Menu acima
@@ -93,6 +93,48 @@
 // - retornará o valor somado acrescido de 10%.
 // DICA: para isso, você precisará percorrer tanto o objeto da chave `food` quanto o objeto da chave `drink`.
 
-const createMenu = () => {};
+const testaValor = (v1, v2) => {
+  if (v1 === v2) {
+    return true; 
+  } 
+    return false;
+  };
+  
+  const somaValor = (v1, a, b) => {
+  if (a) {
+    b += v1;
+  }
+  return b;
+};
 
-module.exports = createMenu;
+const somaComida = (dados) => {
+  let b = 0;
+  for (let i = 0; i < Object.keys(dados.fetchMenu().food).length; i += 1) {
+    for (let j = 0; j < dados.consumption.length; j += 1) {
+      b = somaValor(Object.values((dados.fetchMenu().food))[i], testaValor(Object.keys(dados.fetchMenu().food)[i], dados.consumption[j]), b);
+    }
+    }
+    return b; 
+};
+
+const somaBebida = (dados) => {
+  let b = 0;
+  for (let i = 0; i < Object.keys(dados.fetchMenu().drink).length; i += 1) {
+    for (let j = 0; j < dados.consumption.length; j += 1) {
+      b = somaValor(Object.values((dados.fetchMenu().drink))[i], testaValor(Object.keys(dados.fetchMenu().drink)[i], dados.consumption[j]), b);
+    }
+    }
+    return b;
+  };
+  
+  const createMenu = (obj) => {
+    const dados = { fetchMenu: () => obj };
+    dados.consumption = []; 
+    dados.order = (string) => dados.consumption.push(string); 
+    dados.pay = () => ((somaComida(dados) + somaBebida(dados)) * 1.1).toFixed(2);
+    return dados;
+  };
+
+  console.log(createMenu());
+  
+  module.exports = createMenu;
